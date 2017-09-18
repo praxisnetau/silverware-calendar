@@ -1,0 +1,264 @@
+/* SilverWare Calendar Admin Flatpickr Styles
+===================================================================================================================== */
+
+.flatpickr-calendar {
+  
+  background: $calendar-background;
+  border-radius: $border-radius;
+  border: $calendar-border-width solid $calendar-border-color;
+  box-shadow: $calendar-box-shadow;
+  
+  &.arrowTop:after {
+    border-width: ($calendar-arrow-top-size - 1);
+    border-bottom-color: $calendar-month-nav-background;
+  }
+  
+  &.arrowTop:before {
+    border-width: $calendar-arrow-top-size;
+    border-bottom-color: $calendar-border-color;
+  }
+  
+  &.arrowBottom:after {
+    margin-top: -1px;
+    border-width: ($calendar-arrow-bottom-size - 1);
+    border-top-color: $calendar-inner-border-color;
+  }
+  
+  &.arrowBottom:before {
+    margin-top: -1px;
+    border-width: $calendar-arrow-bottom-size;
+    border-top-color: $calendar-inner-border-color;
+  }
+  
+  .flatpickr-innerContainer {
+    border-left: $calendar-inner-border-width solid $calendar-inner-border-color;
+    border-right: $calendar-inner-border-width solid $calendar-inner-border-color;
+    border-bottom: $calendar-inner-border-width solid $calendar-inner-border-color;
+  }
+  
+  &.showTimeInput {
+    
+    .flatpickr-time {
+      border: $calendar-time-border-width solid $calendar-time-border-color;
+    }
+    
+    &.hasTime {
+      
+      .flatpickr-time {
+        border-top: 0;
+      }
+      
+      .flatpickr-innerContainer {
+        border-bottom-color: $calendar-datetime-border-color;
+      }
+      
+      &.noCalendar {
+        
+        .flatpickr-time {
+          border-top: 1px solid $calendar-time-border-color;
+        }
+        
+      }
+      
+    }
+    
+  }
+  
+}
+
+.flatpickr-month {
+  
+  height: $calendar-month-nav-height;
+  background: $calendar-month-nav-background;
+  
+  .flatpickr-prev-month,
+  .flatpickr-next-month {
+    
+    height: $calendar-month-nav-height;
+    padding: $calender-month-nav-arrow-padding;
+    
+    &:hover svg {
+      fill: $calendar-month-nav-arrow-hover-color;
+      color: $calendar-month-nav-arrow-hover-color;
+      stroke: $calendar-month-nav-arrow-hover-color;
+    }
+    
+    > svg {
+      fill: $calendar-month-nav-arrow-color;
+      color: $calendar-month-nav-arrow-color;
+      stroke: $calendar-month-nav-arrow-color;
+      @include vertical-align();
+    }
+    
+  }
+  
+  .flatpickr-current-month {
+    
+    padding: 0;
+    height: $calendar-month-nav-height;
+    
+    .cur-month {
+      color: $calendar-month-current-foreground;
+      font-weight: $calendar-month-current-font-weight;
+    }
+    
+    .cur-year {
+      color: $calendar-year-current-foreground;
+      font-weight: $calendar-year-current-font-weight;
+    }
+    
+    .cur-year[disabled],
+    .cur-year[disabled]:hover {
+      color: $calendar-year-current-foreground;
+    }
+    
+    .numInputWrapper {
+      
+      span.arrowUp:after {
+        border-bottom-color: $calendar-month-nav-arrow-color;
+      }
+      
+      span.arrowUp:hover:after {
+        border-bottom-color: $calendar-month-nav-arrow-hover-color
+      }
+      
+      span.arrowDown:after {
+        border-top-color: $calendar-month-nav-arrow-color;
+      }
+      
+      span.arrowDown:hover:after {
+        border-top-color: $calendar-month-nav-arrow-hover-color
+      }
+      
+    }
+    
+    .numInputWrapper:hover > .cur-year {
+      color: $calendar-year-current-hover-foreground;
+    }
+    
+    > div,
+    > span {
+      @include vertical-align();
+    }
+    
+  }
+  
+}
+
+.flatpickr-weekdays {
+  
+  height: $calendar-weekdays-height;
+  background: $calendar-weekday-background;
+  
+  .flatpickr-weekday {
+    color: $calendar-weekday-foreground;
+    font-weight: $calendar-weekday-font-weight;
+  }
+  
+}
+
+.flatpickr-weekwrapper {
+  
+  .flatpickr-weeks {
+    box-shadow: 1px 0 0 $calendar-weeks-border-color;
+  }
+  
+  .flatpickr-weekday {
+    background: $calendar-weekday-background;
+    line-height: $calendar-weekdays-height;
+    font-weight: $calendar-week-font-weight;
+  }
+  
+}
+
+.flatpickr-day {
+  
+  color: $calendar-day-foreground;
+  background: $calendar-day-background;
+  border-radius: $calendar-day-border-radius;
+  
+  &.today {
+    border-color: $calendar-today-border-color;
+  }
+  
+  &:hover {
+    color: $calendar-day-hover-foreground;
+    background: $calendar-day-hover-background;
+    border-color: $calendar-day-hover-border-color;
+  }
+  
+  &.today:hover {
+    color: $calendar-day-hover-foreground;
+    background: $calendar-day-hover-background;
+    border-color: $calendar-today-border-color;
+  }
+  
+  &.disabled,
+  &.notAllowed,
+  &.nextMonthDay,
+  &.prevMonthDay {
+    color: $calendar-day-disabled-foreground;
+    &:hover {
+      background: $calendar-day-disabled-hover-background;
+      border-color: $calendar-day-disabled-hover-border-color;
+    }
+  }
+  
+  &.inRange,
+  &.today.inRange,
+  &.nextMonthDay.inRange,
+  &.prevMonthDay.inRange,
+  &.nextMonthDay.inRange:hover,
+  &.prevMonthDay.inRange:hover,
+  &.nextMonthDay.inRange:focus,
+  &.prevMonthDay.inRange:focus {
+    background: $calendar-range-background;
+    border-color: $calendar-range-background;
+    box-shadow: -5px 0 0 $calendar-range-background, 5px 0 0 $calendar-range-background;
+  }
+  
+  &.today.inRange {
+    border-color: $calendar-today-border-color;
+  }
+  
+  &.selected,
+  &.selected:hover,
+  &.selected:focus,
+  &.startRange
+  &.startRange:hover,
+  &.startRange:focus,
+  &.startRange.inRange,
+  &.startRange.inRange:hover,
+  &.startRange.inRange:focus,
+  &.endRange,
+  &.endRange:hover,
+  &.endRange:focus,
+  &.endRange.inRange,
+  &.endRange.inRange:hover,
+  &.endRange.inRange:focus,
+  &.nextMonthDay.startRange,
+  &.prevMonthDay.startRange,
+  &.nextMonthDay.endRange,
+  &.prevMonthDay.endRange,
+  &.nextMonthDay.selected,
+  &.nextMonthDay.selected:hover,
+  &.nextMonthDay.selected:focus,
+  &.prevMonthDayselected,
+  &.prevMonthDay.selected:hover,
+  &.prevMonthDay.selected:focus {
+    color: $calendar-day-selected-foreground;
+    background: $calendar-day-selected-background;
+    border-color: $calendar-day-selected-border-color;
+    box-shadow: none;
+  }
+  
+}
+
+.flatpickr-time {
+  
+  .numInputWrapper:hover,
+  .flatpickr-am-pm:hover {
+    background: $calendar-time-input-hover-background;
+  }
+  
+}

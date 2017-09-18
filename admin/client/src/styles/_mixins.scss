@@ -1,0 +1,8 @@
+/* SilverWare Calendar Admin Mixins
+===================================================================================================================== */
+
+@mixin vertical-align($position: relative) {
+  top: 50%;
+  position: $position;
+  transform: translateY(-50%);
+}

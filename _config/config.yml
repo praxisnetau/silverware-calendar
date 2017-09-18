@@ -1,0 +1,46 @@
+---
+Name: silverware-calendar
+---
+
+# Configure Admin Extensions:
+
+SilverStripe\Admin\LeftAndMain:
+  extra_requirements_css:
+    - silverware-calendar/admin/client/dist/styles/bundle.css
+  extra_requirements_javascript:
+    - silverware-calendar/admin/client/dist/js/bundle.js
+  extensions:
+    - SilverWare\Calendar\Extensions\ControllerExtension
+
+# Configure Content Controller:
+
+SilverStripe\CMS\Controllers\ContentController:
+  required_js:
+    - silverware-calendar/client/dist/js/bundle.js
+  required_css:
+    - silverware-calendar/client/dist/styles/bundle.css
+  extensions:
+    - SilverWare\Calendar\Extensions\ControllerExtension
+
+# Configure Form Field:
+
+SilverStripe\Forms\FormField:
+  calendar_datepicker_class: 'hasDatepicker'
+
+# Configure Date Field:
+
+SilverStripe\Forms\DateField:
+  extensions:
+    - SilverWare\Calendar\Extensions\FormFieldExtension
+
+# Configure Datetime Field:
+
+SilverStripe\Forms\DatetimeField:
+  extensions:
+    - SilverWare\Calendar\Extensions\FormFieldExtension
+
+# Configure Time Field:
+
+SilverStripe\Forms\TimeField:
+  extensions:
+    - SilverWare\Calendar\Extensions\FormFieldExtension

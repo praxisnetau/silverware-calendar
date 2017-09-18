@@ -1,0 +1,24 @@
+/* SilverWare Calendar Admin Bundle
+===================================================================================================================== */
+
+// Import SilverStripe Admin Styles:
+
+@import "~silverstripe-admin/styles/variables";
+@import "~silverstripe-admin/styles/legacy/themes/default";
+
+// Import Bootstrap Styles:
+
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+// Import Flatpickr Styles:
+
+@import "~flatpickr/dist/flatpickr";
+
+// Import Local Styles:
+
+@import "variables";
+@import "mixins";
+@import "styles";
+@import "flatpickr";

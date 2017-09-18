@@ -1,0 +1,70 @@
+{
+  "name": "silverware-calendar",
+  "version": "1.0.0",
+  "description": "SilverWare Calendar Module.",
+  "homepage": "https://github.com/praxisnetau/silverware-calendar",
+  "keywords": [
+    "silverware",
+    "calendar",
+    "date",
+    "time",
+    "datepicker",
+    "timepicker",
+    "silverstripe"
+  ],
+  "license": "BSD-3-Clause",
+  "author": "Praxis Interactive",
+  "contributors": [
+    {
+      "name": "Colin Tucker",
+      "email": "colin@praxis.net.au",
+      "url": "http://www.praxis.net.au"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/praxisnetau/silverware-calendar.git"
+  },
+  "bugs": {
+    "url": "https://github.com/praxisnetau/silverware-calendar/issues"
+  },
+  "engines": {
+    "node": "^4.2.0"
+  },
+  "scripts": {
+    "watch": "webpack --env.development --colors --watch",
+    "build": "webpack --env.production --colors --optimize-minimize"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "autoprefixer": "^7.1.3",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.16",
+    "css-loader": "^0.28.5",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^0.11.2",
+    "flatpickr": "^3.0.7",
+    "node-sass": "^4.5.3",
+    "postcss-loader": "^2.0.6",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "url-loader": "^0.5.9",
+    "webpack": "^3.5.5"
+  },
+  "babel": {
+    "presets": [
+      [
+        "es2015",
+        {
+          "modules": false
+        }
+      ]
+    ]
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}

@@ -1,0 +1,73 @@
+/* SilverWare Calendar Admin Variables
+===================================================================================================================== */
+
+// Colors:
+
+$calendar-background: $white !default;
+
+$calendar-border-color: transparent !default;
+
+$calendar-inner-border-color: $color-brand !default;
+
+$calendar-month-nav-background: $color-brand !default;
+
+$calendar-month-nav-arrow-color: rgba($white, 0.5) !default;
+$calendar-month-nav-arrow-hover-color: $white !default;
+
+$calendar-month-current-foreground: $white !default;
+$calendar-year-current-foreground: rgba(255, 255, 255, 0.75) !default;
+$calendar-year-current-hover-foreground: $white !default;
+
+$calendar-weekday-background: $gray-100 !default;
+$calendar-weekday-foreground: $gray-600 !default;
+
+$calendar-today-border-color: $color-brand !default;
+
+$calendar-day-background: transparent !default;
+$calendar-day-foreground: $body-color !default;
+
+$calendar-day-hover-background: $gray-300 !default;
+$calendar-day-hover-foreground: $body-color !default;
+$calendar-day-hover-border-color: $gray-300 !default;
+
+$calendar-day-selected-background: $color-brand !default;
+$calendar-day-selected-foreground: $white !default;
+$calendar-day-selected-border-color: $color-brand !default;
+
+$calendar-day-disabled-foreground: rgba($calendar-day-foreground, 0.4) !default;
+$calendar-day-disabled-hover-background: lighten($calendar-day-hover-background, 5%) !default;
+$calendar-day-disabled-hover-border-color: lighten($calendar-day-hover-border-color, 5%) !default;
+
+$calendar-datetime-border-color: $gray-200 !default;
+$calendar-time-border-color: $color-brand !default;
+$calendar-time-input-hover-background: $gray-200 !default;
+
+$calendar-weeks-border-color: $gray-200 !default;
+
+$calendar-range-background: $gray-200 !default;
+
+// Shadow:
+
+$calendar-box-shadow: none !default;
+
+// Fonts:
+
+$calendar-month-current-font-weight: $font-weight-bold !default;
+$calendar-year-current-font-weight: $font-weight-normal !default;
+$calendar-weekday-font-weight: $font-weight-normal !default;
+$calendar-week-font-weight: $font-weight-bold !default;
+
+// Borders:
+
+$calendar-border-width: 0 !default;
+$calendar-inner-border-width: 1px !default;
+$calendar-day-border-radius: 0 !default;
+$calendar-time-border-width: 1px !default;
+
+// Sizes:
+
+$calendar-arrow-top-size: 10px !default;
+$calendar-arrow-bottom-size: 10px !default;
+$calender-month-nav-arrow-padding: 0 10px !default;
+$calendar-month-nav-height: 50px !default;
+$calendar-weekdays-height: 40px !default;

@@ -1,0 +1,32 @@
+/* SilverWare Calendar Bundle
+===================================================================================================================== */
+
+// Import SilverWare Theme Files:
+
+@import "~silverware-theme/styles/variables";
+@import "~silverware-theme/styles/mixins";
+
+// Import Bootstrap Styles:
+
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+// Import Flatpickr Styles:
+
+@import "~flatpickr/dist/flatpickr";
+
+// Import Local Variables:
+
+@import "variables";
+
+// Import Admin Styles:
+
+@import "~calendar-admin/styles/variables";
+@import "~calendar-admin/styles/mixins";
+@import "~calendar-admin/styles/styles";
+@import "~calendar-admin/styles/flatpickr";
+
+// Import Local Styles:
+
+@import "styles";
