@@ -1,6 +1,6 @@
 {
   "name": "silverware/calendar",
-  "type": "silverstripe-module",
+  "type": "silverstripe-vendormodule",
   "description": "SilverWare Calendar Module.",
   "homepage": "https://github.com/praxisnetau/silverware-calendar",
   "keywords": [
@@ -34,7 +34,10 @@
     "branch-alias": {
       "dev-master": "1.0.x-dev"
     },
-    "installer-name": "silverware-calendar"
+    "expose": [
+      "admin/client/dist",
+      "client/dist"
+    ]
   },
   "minimum-stability": "dev",
   "prefer-stable": true
