@@ -38,8 +38,8 @@ the app is using [SilverWare][silverware]. If you are using a vanilla SilverStri
 project, you'll need to load the module script and styles in your app bundle
 (jQuery is required):
 
-- `silverware-calendar/client/dist/js/bundle.js`
-- `silverware-calendar/client/dist/styles/bundle.css`
+- `silverware/calendar: client/dist/js/bundle.js`
+- `silverware/calendar: client/dist/styles/bundle.css`
 
 ## Configuration
 

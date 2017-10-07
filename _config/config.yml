@@ -6,9 +6,9 @@ Name: silverware-calendar
 
 SilverStripe\Admin\LeftAndMain:
   extra_requirements_css:
-    - silverware-calendar/admin/client/dist/styles/bundle.css
+    - "silverware/calendar: admin/client/dist/styles/bundle.css"
   extra_requirements_javascript:
-    - silverware-calendar/admin/client/dist/js/bundle.js
+    - "silverware/calendar: admin/client/dist/js/bundle.js"
   extensions:
     - SilverWare\Calendar\Extensions\ControllerExtension
 
@@ -16,9 +16,9 @@ SilverStripe\Admin\LeftAndMain:
 
 SilverStripe\CMS\Controllers\ContentController:
   required_js:
-    - silverware-calendar/client/dist/js/bundle.js
+    - "silverware/calendar: client/dist/js/bundle.js"
   required_css:
-    - silverware-calendar/client/dist/styles/bundle.css
+    - "silverware/calendar: client/dist/styles/bundle.css"
   extensions:
     - SilverWare\Calendar\Extensions\ControllerExtension
 
