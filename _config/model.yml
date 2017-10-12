@@ -1,0 +1,10 @@
+---
+Name: silverware-calendar-model
+---
+
+# SilverWare Calendar Model:
+
+SilverStripe\Core\Injector\Injector:
+  SilverWare\Calendar\Extensions\FormFieldExtension:
+    class: SilverWare\Calendar\Extensions\FormFieldExtension
+    type: prototype
