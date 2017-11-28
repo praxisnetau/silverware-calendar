@@ -139,6 +139,10 @@ class FormFieldExtension extends Extension
      */
     public function getCalendarEnabled()
     {
+        if ($this->owner->isReadonly() || $this->owner->isDisabled()) {
+            return 'false';
+        }
+        
         return ($this->calendarDisabled || $this->owner->config()->calendar_disabled) ? 'false' : 'true';
     }
     
