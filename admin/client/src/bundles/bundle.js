@@ -1,6 +1,10 @@
 /* SilverWare Calendar Admin Bundle
 ===================================================================================================================== */
 
+// Load Flatpickr Styles:
+
+require('flatpickr/dist/flatpickr.css');
+
 // Load Styles:
 
 require('styles/bundle.scss');

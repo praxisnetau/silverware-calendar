@@ -1,47 +1,73 @@
 /* Webpack Configuration
 ===================================================================================================================== */
 
-// Load Core Modules:
+// Load Core:
 
-const path = require('path');
+const path    = require('path');
 const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
 
-// Load Plugin Modules:
+// Load Plugins:
 
+const CleanPlugin       = require('clean-webpack-plugin');
+const UglifyJsPlugin    = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-// Configure Paths:
+// Define Base:
+
+const BASE = '/resources/vendor/silverware/calendar';
+
+// Define Paths:
 
 const PATHS = {
   ADMIN: {
     SRC: path.resolve(__dirname, 'admin/client/src'),
     DIST: path.resolve(__dirname, 'admin/client/dist'),
-    BUNDLES: path.resolve(__dirname, 'admin/client/src/bundles'),
-    PUBLIC: '/resources/silverware/calendar/admin/client/dist/'
+    PUBLIC: BASE + '/admin/client/dist/'
   },
   MODULE: {
     SRC: path.resolve(__dirname, 'client/src'),
     DIST: path.resolve(__dirname, 'client/dist'),
-    BUNDLES: path.resolve(__dirname, 'client/src/bundles'),
-    PUBLIC: '/resources/silverware/calendar/client/dist/',
+    PUBLIC: BASE + '/client/dist/',
   },
   MODULES: path.resolve(__dirname, 'node_modules')
 };
 
-// Configure Style Loader:
+// Define Configs:
 
-const style = (env, loaders) => {
-  return (env === 'production') ? ExtractTextPlugin.extract({
-    fallback: 'style-loader',
-    use: loaders
-  }) : [{ loader: 'style-loader' }].concat(loaders);
-};
+const CONFIGS = [
+  {
+    paths: PATHS.ADMIN,
+    entry: {
+      'bundle': 'bundles/bundle.js'
+    },
+    resolve: {
+      alias: {
+        'bootstrap': path.resolve(process.env.PWD, '../../silverstripe/admin/node_modules/bootstrap'),
+        'silverstripe-admin': path.resolve(process.env.PWD, '../../silverstripe/admin/client/src')
+      }
+    }
+  },
+  {
+    paths: PATHS.MODULE,
+    entry: {
+      'bundle': 'bundles/bundle.js'
+    },
+    resolve: {
+      alias: {
+        'bootstrap': path.resolve(process.env.PWD, '../../../themes/silverware-theme/node_modules/bootstrap'),
+        'silverware-theme': path.resolve(process.env.PWD, '../../../themes/silverware-theme/source'),
+        'calendar-admin': path.resolve(process.env.PWD, 'admin/client/src')
+      }
+    }
+  }
+];
 
-// Configure Rules:
+// Define Rules:
 
 const rules = (env) => {
+  
+  // Answer Rules:
+  
   return [
     {
       test: /\.js$/,
@@ -50,40 +76,27 @@ const rules = (env) => {
           loader: 'babel-loader'
         }
       ],
-      exclude: [ PATHS.MODULES ]
+      exclude: [
+        PATHS.MODULES
+      ]
     },
     {
       test: /\.css$/,
-      use: style(env, [
-        {
-          loader: 'css-loader'
-        },
-        {
-          loader: 'postcss-loader',
-          options: {
-            plugins: [ autoprefixer ] // see "browserslist" in package.json
-          }
-        }
-      ])
+      use: style(env)
     },
     {
       test: /\.scss$/,
       use: style(env, [
         {
-          loader: 'css-loader'
-        },
-        {
-          loader: 'postcss-loader',
+          loader: 'resolve-url-loader',
           options: {
-            plugins: [ autoprefixer ] // see "browserslist" in package.json
+            sourceMap: true
           }
         },
         {
           loader: 'sass-loader',
           options: {
-            includePaths: [
-              path.resolve(process.env.PWD, '../') // allows resolving of framework paths in symlinked modules
-            ]
+            sourceMap: true
           }
         }
       ])
@@ -99,124 +112,203 @@ const rules = (env) => {
           }
         }
       ]
+    },
+    {
+      test: /\.svg$/,
+      use: [
+        {
+          loader: 'file-loader',
+          options: {
+            name: 'svg/[name].[ext]'
+          }
+        },
+        {
+          loader: 'svgo-loader',
+          options: {
+            plugins: [
+              { removeTitle: true },
+              { convertColors: { shorthex: false } },
+              { convertPathData: true }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      test: /\.(ttf|eot|woff|woff2)$/,
+      loader: 'file-loader',
+      options: {
+        name: 'fonts/[name].[ext]'
+      }
     }
   ];
+  
 };
 
-// Configure Devtool:
+// Define Style Loaders:
+
+const style = (env, extra = []) => {
+  
+  // Common Loaders:
+  
+  let loaders = [
+    {
+      loader: 'css-loader',
+      options: {
+        sourceMap: true
+      }
+    },
+    {
+      loader: 'postcss-loader',
+      options: {
+        config: {
+          path: path.resolve(__dirname, 'postcss.config.js')
+        },
+        sourceMap: true
+      }
+    }
+  ];
+  
+  // Merge Loaders:
+  
+  loaders = [...loaders, ...extra];
+  
+  // Answer Loaders:
+  
+  return (env === 'production') ? ExtractTextPlugin.extract({
+    fallback: 'style-loader',
+    use: loaders
+  }) : [{ loader: 'style-loader' }].concat(loaders);
+  
+};
+
+// Define Devtool:
 
 const devtool = (env) => {
   return (env === 'production') ? false : 'source-map';
 };
 
-// Configure Plugins:
+// Define Plugins:
 
-const plugins = (env, src, dist) => {
+const plugins = (env, config) => {
   
-  // Define Common Plugins:
+  // Common Plugins:
   
-  var common = [
+  let plugins = [
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery'
     })
   ];
   
-  // Answer Common + Environment-Specific Plugins:
+  // Merge Plugins:
   
-  return common.concat((env === 'production') ? [
-    new CleanWebpackPlugin([ dist ], {
-      verbose: true
-    }),
-    new ExtractTextPlugin({
-      filename: 'styles/[name].css',
-      allChunks: true
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      output: {
-        beautify: false,
-        comments: false,
-        semicolons: false
-      },
-      compress: {
-        unused: false,
-        warnings: false
-      }
-    })
-  ] : [
-    
-  ]);
+  if (config.plugins) {
+    plugins = [...plugins, ...config.plugins];
+  }
+  
+  // Answer Plugins:
+  
+  return plugins.concat(
+    (env === 'production') ? [
+      new CleanPlugin(
+        [ config.paths.DIST ]
+      ),
+      new ExtractTextPlugin({
+        filename: 'styles/[name].css',
+        allChunks: true
+      }),
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          output: {
+            comments: false
+          }
+        }
+      })
+    ] : [
+      
+    ]
+  );
+  
+};
+
+// Define Resolve:
+
+const resolve = (env, config) => {
+  
+  let resolve = {
+    modules: [
+      config.paths.SRC,
+      PATHS.MODULES
+    ]
+  };
+  
+  if (config.resolve) {
+    Object.assign(resolve, config.resolve);
+  }
+  
+  return resolve;
+  
+};
+
+// Define Externals:
+
+const externals = (env, config) => {
+  
+  let externals = {
+    jquery: 'jQuery'
+  };
+  
+  if (config.externals) {
+    Object.assign(externals, config.externals);
+  }
+  
+  return externals;
   
 };
 
 // Define Configuration:
 
-const config = (env) => {
-  return [
-    {
-      entry: {
-        'bundle': path.resolve(PATHS.ADMIN.BUNDLES, 'bundle.js')
-      },
+const config = (env, configs) => {
+  
+  // Define Exports:
+  
+  let exports = [];
+  
+  // Iterate Configs:
+  
+  for (let config of configs) {
+    
+    // Build Export:
+    
+    exports.push({
+      entry: config.entry,
       output: {
-        path: PATHS.ADMIN.DIST,
+        path: config.paths.DIST,
         filename: 'js/[name].js',
-        publicPath: PATHS.ADMIN.PUBLIC
+        publicPath: config.paths.PUBLIC
       },
       module: {
         rules: rules(env)
       },
       devtool: devtool(env),
-      plugins: plugins(env, PATHS.ADMIN.SRC, PATHS.ADMIN.DIST),
-      resolve: {
-        alias: {
-          'bootstrap': path.resolve(process.env.PWD, '../../silverstripe/admin/node_modules/bootstrap'),
-          'silverstripe-admin': path.resolve(process.env.PWD, '../../silverstripe/admin/client/src')
-        },
-        modules: [
-          PATHS.ADMIN.SRC,
-          PATHS.MODULES
-        ]
-      },
-      externals: {
-        jquery: 'jQuery'
-      }
-    },
-    {
-      entry: {
-        'bundle': path.resolve(PATHS.MODULE.BUNDLES, 'bundle.js')
-      },
-      output: {
-        path: PATHS.MODULE.DIST,
-        filename: 'js/[name].js',
-        publicPath: PATHS.MODULE.PUBLIC
-      },
-      module: {
-        rules: rules(env)
-      },
-      devtool: devtool(env),
-      plugins: plugins(env, PATHS.MODULE.SRC, PATHS.MODULE.DIST),
-      resolve: {
-        alias: {
-          'bootstrap': path.resolve(process.env.PWD, '../../../themes/silverware-theme/node_modules/bootstrap'),
-          'silverware-theme': path.resolve(process.env.PWD, '../../../themes/silverware-theme/source'),
-          'calendar-admin': path.resolve(process.env.PWD, 'admin/client/src')
-        },
-        modules: [
-          PATHS.MODULE.SRC,
-          PATHS.MODULES
-        ]
-      },
-      externals: {
-        jquery: 'jQuery'
-      }
-    }
-  ];
+      plugins: plugins(env, config),
+      resolve: resolve(env, config),
+      externals: externals(env, config)
+    });
+    
+  }
+  
+  // Answer Exports:
+  
+  return exports;
+  
 };
 
 // Define Module Exports:
 
-module.exports = (env = {development: true}) => {
-  process.env.NODE_ENV = (env.production ? 'production' : 'development');
+module.exports = (env = {}) => {
+  process.env.NODE_ENV = env.production ? 'production' : 'development';
   console.log(`Running in ${process.env.NODE_ENV} mode...`);
-  return config(process.env.NODE_ENV);
+  return config(process.env.NODE_ENV, CONFIGS);
 };
