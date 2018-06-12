@@ -1,1 +1,8 @@
-module.exports = {};
+/* PostCSS Configuration
+===================================================================================================================== */
+
+module.exports = {
+  plugins: [
+    require('autoprefixer')
+  ]
+};
