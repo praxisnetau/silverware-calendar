@@ -18,6 +18,7 @@
 namespace SilverWare\Calendar\Extensions;
 
 use SilverStripe\Core\Extension;
+use SilverStripe\i18n\i18n;
 use SilverStripe\View\Requirements;
 
 /**
@@ -41,6 +42,19 @@ class ControllerExtension extends Extension
         if ($this->owner->getCalendarHighlightColor()) {
             Requirements::customCSS($this->getCustomCSS());
         }
+    }
+    
+    /**
+     * Event handler method triggered after the extended controller has initialised.
+     *
+     * @return void
+     */
+    public function onAfterInit()
+    {
+        // (try &) load locale file + set default locale for flatpickr to current users' i18n locale
+        $userLangIso = i18n::getData()->langFromLocale(i18n::get_locale());
+        Requirements::javascript("//npmcdn.com/flatpickr/dist/l10n/$userLangIso.js");
+        Requirements::customScript("flatpickr.localize(flatpickr.l10ns.$userLangIso);");
     }
     
     /**
