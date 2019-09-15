@@ -17,6 +17,7 @@
 
 namespace SilverWare\Calendar\Extensions;
 
+use SilverStripe\Core\Config\Configurable;
 use SilverStripe\Core\Convert;
 use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FormField;
@@ -32,6 +33,13 @@ use SilverStripe\Forms\FormField;
  */
 class FormFieldExtension extends Extension
 {
+    use Configurable;
+
+    /**
+     * (Standard/default) config object for static flatpickr config (merged with instance $calendarConfig)
+     */
+    private static $flatpickr_base_config = [];
+    
     /**
      * Holds the calendar picker config for the extended object.
      *
@@ -74,11 +82,16 @@ class FormFieldExtension extends Extension
      */
     public function getCalendarConfig($name = null)
     {
+        $mergedConfig = array_merge(
+            $this->config()->get('flatpickr_base_config'),
+            $this->calendarConfig
+        );
+
         if (!is_null($name)) {
-            return isset($this->calendarConfig[$name]) ? $this->calendarConfig[$name] : null;
+            return isset($mergedConfig[$name]) ? $mergedConfig[$name] : null;
         }
         
-        return $this->calendarConfig;
+        return $mergedConfig;
     }
     
     /**

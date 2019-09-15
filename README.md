@@ -90,10 +90,18 @@ SilverStripe\Forms\DateField:
 
 Out of the box, the module will automatically add a [flatpickr][flatpickr] to
 all `DateField`, `DatetimeField` and `TimeField` instances. Each field will
-be configured automatically with default settings for each use case.
+be configured automatically with default settings for each use case. A flatpickr 
+language file will be loaded and used (if available) based on the current i18n locale.
 
 If you need to apply additional options supported by [flatpickr][flatpickr], you
-can do so by using the `setCalendarConfig()` method:
+can do so by using YAML config (static), or the `setCalendarConfig()` method (instance):
+
+```yml
+SilverWare\Calendar\Extensions\FormFieldExtension:
+  flatpickr_base_config:
+    time_24hr: true
+    altFormat: "l j F Y \\o\\m H:i"
+```
 
 ```php
 use SilverStripe\Forms\DateField;
