@@ -54,7 +54,7 @@ class ControllerExtension extends Extension
         // (try &) load locale file + set default locale for flatpickr to current users' i18n locale
         $userLangIso = i18n::getData()->langFromLocale(i18n::get_locale());
         Requirements::javascript("//npmcdn.com/flatpickr/dist/l10n/$userLangIso.js");
-        Requirements::customScript("flatpickr.localize(flatpickr.l10ns.$userLangIso);");
+        Requirements::customScript("flatpickr.localize(flatpickr.l10ns.$userLangIso);", "FlatpickrLocalization");
     }
     
     /**
